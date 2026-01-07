@@ -59,15 +59,15 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { userName, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!userName || !password) {
+  if (!email || !password) {
     return res
       .status(400)
       .json({ message: "Please provide userName and password", sucess: false });
   }
 
-  const user = await User.findOne({ userName });
+  const user = await User.findOne({ email });
 
   if (!user) {
     return res
@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
 
   const token = generateToken({
     _id: user._id,
-    userName: user.userName,
+    email: user.email,
   });
 
   return res.status(200).json({ message: "login success", token });
