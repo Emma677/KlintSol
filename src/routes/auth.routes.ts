@@ -86,7 +86,17 @@ router.post("/login", async (req, res) => {
     email: user.email,
   });
 
-  return res.status(200).json({ message: "login success", token });
+  // return res.status(200).json({ message: "login success", token });
+  return res.status(200).json({
+  message: "login success",
+  token,
+  user: {
+    _id: user._id,
+    userName: user.userName,
+    email: user.email,
+  },
+});
+
 });
 
 // get loggedIn user details
