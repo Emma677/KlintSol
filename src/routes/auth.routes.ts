@@ -82,7 +82,7 @@ router.post("/login", async (req, res) => {
   }
 
   const token = generateToken({
-    _id: user._id,
+    _id: user._id, 
     email: user.email,
   });
 
