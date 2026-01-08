@@ -86,7 +86,6 @@ router.post("/login", async (req, res) => {
     email: user.email,
   });
 
-  // return res.status(200).json({ message: "login success", token });
   return res.status(200).json({
   message: "login success",
   token,
@@ -94,7 +93,6 @@ router.post("/login", async (req, res) => {
     _id: user._id,
     userName: user.userName,
     email: user.email,
-    password:user.password
   },
 });
 
@@ -131,17 +129,26 @@ router.post("/request-password-reset", async (req, res) => {
   await user.save();
 
   const subject = "Password reset request for KlintSocial account"
-  const text = `click this link to reset your password: https://klintSocials.com/reset-password?resetTokens=${resetToken}`
-  sendSMTPEmail(user.email,subject,text)
+  const text = `click this link to reset your password: https://klintSocials.com/reset-password?resetToken=${resetToken}`
+  
+ try {
+  await sendSMTPEmail(user.email, subject, text);
 
   return res.json({
     message: "Password link sent to email",
-    resetToken: resetToken,
-  }); 
+  });
+} catch (error) {
+  console.error("EMAIL ERROR:", error);
+
+  return res.status(500).json({
+    message: "Failed to send reset email",
+  });
+}
+
 });
 
 // password reset
-router.post("/resetPassword", async (req, res) => {
+router.post("/reset-password", async (req, res) => {
   const { resetToken, newPassword } = req.body;
 
   // verify the token
