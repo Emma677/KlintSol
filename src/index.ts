@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 import cors from "cors"
 import mongoose from "mongoose"
 import authRoute from "./routes/auth.routes"
-
+import formRoute from "./routes/forms.routes"
 
 dotenv.config()
 
@@ -31,6 +31,7 @@ mongoose.connect(MONGO_URL)
 
 // Routes
 app.use('/api', authRoute)
+app.use('/api', formRoute)
 
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.error(err.stack)

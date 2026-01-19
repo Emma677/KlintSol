@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import authMiddleware from "../middleware/auth";
-// import sendSMTPEmail from "../config/smtp";
 import crypto from "crypto";
 import { sendResetEmail } from "../utils/sendResetEmail";
 
