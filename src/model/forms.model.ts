@@ -24,8 +24,6 @@ const formSchema = new mongoose.Schema({
       lowercase: true,
       trim: true
     },
-    experience: { type: String },
-    skills: { type: [String], default: [] },
     otherSkills: { type: String }
   },
   projects: { type: [ProjectSchema], default: [] },
